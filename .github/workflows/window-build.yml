@@ -2,7 +2,7 @@ name: ZEngine Window Build
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master, develop, user/kate/release_artifacts ]
   pull_request:
     branches: [ master, develop ]
 
@@ -32,6 +32,23 @@ jobs:
     - name: CMake Build
       run: .\Scripts\BuildEngine.ps1 -Configurations ${{matrix.buildConfiguration}}
       shell: pwsh
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build files
+        path: |
+          Result.Darwin.x64.Debug/Panzerfaust/Release
+          !Result.Darwin.x64.Debug/Panzerfaust/Release/Editor
+
+    - name: 'Tar files'
+      run: tar -cvf my_files.tar /Result.Darwin.x64.Debug/Panzerfaust/Release
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-artifact
+        path: my_files.tar
 
     - name: Run Tests
       run: .\Scripts\RunTests.ps1 -Configurations ${{matrix.buildConfiguration}}
