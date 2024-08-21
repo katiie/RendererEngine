@@ -38,11 +38,10 @@ jobs:
       with:
         name: build files
         path: |
-          Result.Darwin.x64.Debug/Panzerfaust/Release
-          !Result.Darwin.x64.Debug/Panzerfaust/Release/Editor
+          /
 
     - name: 'Tar files'
-      run: tar -cvf my_files.tar /Result.Darwin.x64.Debug/Panzerfaust/Release
+      run: tar -cvf my_files.tar /
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
