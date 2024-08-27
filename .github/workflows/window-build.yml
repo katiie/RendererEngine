@@ -35,7 +35,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: build-files
-        path: ${{ github.workspace}}/RendererEngine/RendererEngine/Result.Windows.x64.MultiConfig
+        path: ${{ github.workspace}}/Result.Windows.x64.MultiConfig
 
     - name: Run Tests
       run: .\Scripts\RunTests.ps1 -Configurations ${{matrix.buildConfiguration}}
